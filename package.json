@@ -1,16 +1,15 @@
 {
-  "name": "rating-system",
-  "description": "Rating System",
-  "version": "0.1.0",
+  "name": "expressMongooseBoilerplate",
+  "description": "express mongoose boilerplate",
+  "version": "0.1.1",
   "main": "server",
   "engines": {
-    "node": ">=0.10.22"
+    "node": ">=4.6.2"
   },
   "dependencies": {
-    "body-parser": "^1.13.3",
-    "boom": "^2.6.1",
-    "express": "^4.10.6",
-    "mongoose": "^4.1.11"
+    "body-parser": "1.15.2",
+    "express": "4.14.0",
+    "mongoose": "4.6.8"
   },
   "author": {
     "name": "gaurav gupta",

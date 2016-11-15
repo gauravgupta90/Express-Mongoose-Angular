@@ -80,7 +80,7 @@ UserSchema.statics.createUser = function(requestData, callback) {
 };
 
 UserSchema.statics.updateUser = function(userId, username, callback) {
-    this.findOneAndUpdate({'userId': userId}, { $set: { 'username': username }}, callback);
+    this.findOneAndUpdate({'userId': userId}, { $set: { 'username': username }}, { new: true }, callback);
 };
 
 UserSchema.statics.removeUser = function(userId, callback) {

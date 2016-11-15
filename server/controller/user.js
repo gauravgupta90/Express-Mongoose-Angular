@@ -1,20 +1,18 @@
 'use strict';
 
-var User = require('../model/user').User,
-    Boom = require('boom');
-
+var mongoose = require('mongoose'),
+    user = mongoose.model('user');
 
 /**
    GET: /user
  */
 
 exports.getAll = function (req,res,next) {
-    User.getAllUsers(function(err, user) {
-      if (!err) {
-          res.json(user);
-      } else {
-          res.send(Boom.badImplementation(err)); // 500 error
-      }
+    user.getAllUsers(function(err, user) {
+      if (!err)
+        res.json({status: true, result: user, message:"successfully get all user" });
+      else
+        res.json({status: false, error: err, message:"oops something went wrong!"});
     });
 
 };
@@ -24,12 +22,11 @@ exports.getAll = function (req,res,next) {
  */
 
 exports.getOne = function (req,res,next) {
-      User.getUser(req.params.userid , function(err, user) {
-        if (!err) {
-            res.json(user);
-        } else {
-            res.send(Boom.badImplementation(err)); // 500 error
-        }
+      user.getUser(req.params.userid , function(err, user) {
+        if (!err)
+          res.json({status: true, result: user, message:"successfully get user info"});
+        else
+          res.json({status: false, error: err, message:"oops something went wrong!"});
     });
 
 };
@@ -39,14 +36,14 @@ exports.getOne = function (req,res,next) {
  */
 
 exports.create = function (req,res,next) {
-    User.createUser(req.body, function(err, user) {
+    user.createUser(req.body, function(err, user) {
         if (!err) {
-            res.json(user);
+            res.json({status: true, result: user, message: "user created successfully"});
         } else {
-             if (11000 === err.code || 11001 === err.code) {
-                    res.send(Boom.forbidden("please provide another user id, it already exist"));
-            }
-            else res.send(Boom.forbidden(err)); // HTTP 403
+            if (11000 === err.code || 11001 === err.code)
+              res.json({status: false, error: err, message:"please provide another user id, it already exist"});
+            else
+              res.json({status: false, error: err, message:"oops something went wrong!"});
         }
     });
 };
@@ -56,17 +53,17 @@ exports.create = function (req,res,next) {
  */
 
 exports.update = function (req,res,next) {
-    User.updateUser(req.params.userid, req.body.username, function(err, user){
+    user.updateUser(req.params.userid, req.body.username, function(err, user){
       if (!err) {
           if (user)
-              res.send("User updated successfully");
+            res.json({status: true, result: user, message: "User updated successfully"});
           else
-              res.send("No such user found");
+            res.json({status: true, result: user, message: "No such user found"});
       } else {
-           if (11000 === err.code || 11001 === err.code) {
-                  res.send(Boom.forbidden("please provide another user id, it already exist"));
-          }
-          else res.send(Boom.forbidden(err)); // HTTP 403
+          if (11000 === err.code || 11001 === err.code) 
+            res.json({status: false, error: err, message:"please provide another user id, it already exist"});
+          else 
+            res.json({status: false, error: err, message:"oops something went wrong!"});
       }
     });
 };
@@ -76,14 +73,13 @@ exports.update = function (req,res,next) {
  */
 
 exports.remove = function (req,res,next) {
-    User.removeUser(req.params.userid, function(err, user){
+    user.removeUser(req.params.userid, function(err, user){
         if(!err){
           if(user.result.n) // checks from mongodb response for successfull deletion
-              res.send("User deleted successfully");
+              res.json({status: true, result: user, message: "User deleted successfully"});
           else
-              res.send("No user found");
-        } else {
-          res.send(Boom.badRequest("Could not delete user")); 
-        }
+              res.json({status: true, result: user, message: "No such user found"});
+        } else 
+            res.json({status: false, error: err, message:"oops something went wrong!"});
     });
 };
