@@ -1,7 +1,7 @@
-Express-Mongoose-Angular Skeleton
+Express-Mongoose-Redis-Angular Skeleton
 ================================================
 
-The purpose of this app is to prepare a basic Skeleton for a node.js project and show a new way to work with Express.js, Mongodb, Mongoose, Angular.js.
+The purpose of this app is to prepare a basic Skeleton for a node.js project and show a new way to work with Express.js, Mongodb, Mongoose, Redis, Angular.js.
 
 This gives a quick start for a node.js industrial project without worrying much on structure but focus more on business logic.
 
@@ -10,6 +10,18 @@ It has only basic modules to start a new project from scratch and later add few 
 Now it's time to start coding...
 
 Happy Coding!
+
+### Technology Stack
+
+	Node.js
+
+	Express framework
+
+	MongoDB (for database)
+
+	Mongoose
+
+	Redis (for caching)
 
 
 ### Install an app
